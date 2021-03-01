@@ -1,6 +1,6 @@
 import pokeApi from "../apis/PokeApi";
 import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
-import { FETCH_RANDOM_POKEMON } from "../constants/randomPokemonReducer.constant";
+import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
 
 export const fetchStarterPokemon = (arr) => async (dispatch) => {
   var payload = [];
@@ -8,14 +8,12 @@ export const fetchStarterPokemon = (arr) => async (dispatch) => {
     var response = await pokeApi.get(`/pokemon/${num}`);
     payload.push(response);
   }
-  console.log(payload, "payload")
   dispatch({
     type: FETCH_STARTER_POKEMON,
     payload,
   });
 };
 
-// helper function
 const generateRandomNum = () => {
   var randomNum;
   randomNum = Math.floor(Math.random() * 811) + 1;
@@ -25,14 +23,11 @@ const generateRandomNum = () => {
 export const fetchRandomPokemon = () => async (dispatch) => {
   // const pokemonLimit = await pokeApi.get('/pokemon-species/?limit=0')
 
-  // generate a random number between 1 and 811
   const randomNum = generateRandomNum();
-  // then use that number in the API call
-  const response = await pokeApi.get(`/pokemon/${randomNum}`);
-  console.log(response, "response");
+  const payload = await pokeApi.get(`/pokemon/${randomNum}`);
   dispatch({
     type: FETCH_RANDOM_POKEMON,
-    payload: response.data,
+    payload
   });
 };
 

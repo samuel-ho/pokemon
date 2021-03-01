@@ -1,12 +1,5 @@
 import React from "react";
 import "./Pokemon.css";
-// DUCKS system vs rails system
-// REdux Toolkit docs talks about DUCKS
-
-// Sticky header might need to be in a container or above
-// overflow: scroll
-
-// use flexbox
 
 function PokemonCard({ img, name, height, weight, baseExperience }) {
   return (

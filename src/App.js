@@ -6,14 +6,13 @@ import { fetchStarterPokemon } from "./actions/index";
 import { fetchRandomPokemon } from "./actions/index";
 import Pokemon from "./components/Pokemon";
 
-// Component Hierarchy: App -> PokemonCards(3)
 class App extends Component {
   componentDidMount() {
     this.props.fetchStarterPokemon(["7", "4", "1"]);
   }
 
   // Refactor: the rendering/displaying of cards could be in a page
-  renderStarterPokemon() {
+  renderPokemon() {
     return this.props.starterPokemon.map((pokemon, id) => {
       return (
         <Pokemon
@@ -28,26 +27,12 @@ class App extends Component {
     });
   }
 
-  renderRandomPokemon() {
-    // var randomPokemonKeys = Object.keys(this.props.randomPokemon)
-    // return randomPokemonKeys.map((key, id) => {
-    //   console.log(this.props.randomPokemon[key].name, "this.props.randomPokemon[key].name")
-    //   return <Pokemon key={id} name={this.props.randomPokemon[key].name}/>
-    // })
-    // for(let key in this.props.randomPokemon) {
-    //   var img = this.props.randomPokemon[key].front_default
-    // }
-  }
-
   render() {
-    // console.log(this.props.randomPokemon, "this.props.randomPokemon")
-    // console.log(this.props, "this.props");
     return (
       <>
         <h1> Pokemon List </h1>
-        <ul className="starter-list">{this.renderStarterPokemon()}</ul>
+        <ul className="starter-list">{this.renderPokemon()}</ul>
       <button onClick={() => this.props.fetchRandomPokemon()}> Find Random Pokemon </button>
-      <div> {this.renderRandomPokemon()}</div>
       </>
     );
   }
@@ -56,7 +41,6 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     starterPokemon: state.starterPokemon,
-    randomPokemon: state.randomPokemon
   };
 };
 

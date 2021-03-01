@@ -1,15 +1,27 @@
 import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
 
 export default (state = [], action) => {
   switch (action.type) {
     case FETCH_STARTER_POKEMON:
-      const copyOfState = [...state];
-      const newState = copyOfState.concat(action.payload);
+      const newState = [...state].concat(action.payload);
       return newState;
-      
+
+    case FETCH_RANDOM_POKEMON:
+      const copyOfState = [...state]
+      if(copyOfState.length === 3) {
+        copyOfState.push(action.payload);
+        return copyOfState;
+      }
+      else if(copyOfState.length === 4) {
+        copyOfState.pop();
+        copyOfState.push(action.payload);
+        return copyOfState;
+      }
+
     default:
       return state;
-  }
+  };
 };
 
 /*
