@@ -1,4 +1,4 @@
-.card {
+.pokemon-card {
     background: #fff;
     border-radius: 2px;
     height: 325px;
@@ -9,33 +9,29 @@
     text-align: left;
   }
   
-  .card > .img-container {
+  .pokemon-card > .img-container {
     height: 60%;
     overflow: hidden;
     text-align: center;
     background: #6caddc;
   }
-  .card > .img-container > img {
+  .pokemon-card > .img-container > img {
     width: 100%;
   }
   
-  .card > .content {
+  .pokemon-card > .content {
     font-size: 15px;
   }
   
-  .card > .content > ul {
+  .pokemon-card > .content > ul {
     list-style-type: none;
   }
   
-  .card > .content > ul > li {
+  .pokemon-card > .content > ul > li {
     margin-top: 18px;
   }
   
-  .fave-btn {
-    cursor: pointer;
-  }
-  
-  .artist-img {
+  .pokemon-img {
     position: relative;
     top: -30px;
   }

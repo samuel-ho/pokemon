@@ -1,10 +1,45 @@
 import pokeApi from "../apis/PokeApi";
-import { FETCH_SQUIRTLE } from "../constants/starterPokemonReducer.constant";
-import { FETCH_CHARMANDER } from "../constants/starterPokemonReducer.constant";
-import { FETCH_BULBASAUR } from "../constants/starterPokemonReducer.constant";
-import axios from 'axios';
+import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { FETCH_RANDOM_POKEMON } from "../constants/randomPokemonReducer.constant";
 
-export const fetchSquirtle = () => async (dispatch) => {
+export const fetchStarterPokemon = (arr) => async (dispatch) => {
+  var payload = [];
+  for await (let num of arr) {
+    var response = await pokeApi.get(`/pokemon/${num}`);
+    payload.push(response);
+  }
+  console.log(payload, "payload")
+  dispatch({
+    type: FETCH_STARTER_POKEMON,
+    payload,
+  });
+};
+
+// helper function
+const generateRandomNum = () => {
+  var randomNum;
+  randomNum = Math.floor(Math.random() * 811) + 1;
+  return randomNum;
+};
+
+export const fetchRandomPokemon = () => async (dispatch) => {
+  // const pokemonLimit = await pokeApi.get('/pokemon-species/?limit=0')
+
+  // generate a random number between 1 and 811
+  const randomNum = generateRandomNum();
+  // then use that number in the API call
+  const response = await pokeApi.get(`/pokemon/${randomNum}`);
+  console.log(response, "response");
+  dispatch({
+    type: FETCH_RANDOM_POKEMON,
+    payload: response.data,
+  });
+};
+
+
+
+/** Solution 0
+ * export const fetchSquirtle = () => async (dispatch) => {
   const response = await pokeApi.get(`/pokemon/7`);
   console.log(response)
   dispatch({
@@ -28,9 +63,7 @@ export const fetchBulbasaur = () => async (dispatch) => {
     payload: response.data
   });
 };
-
-
-
+ */
 
 /** 
  * Solution 1:
@@ -81,7 +114,7 @@ export const fetchBulbasaur = () => async (dispatch) => {
        if rejected, returns nothing
        *
        const payload = Promise.all( arr.map(async id => {
-         const response = await pokeApi.get(`/pokemon/${id}`);
+         const response = await pokeApi.get(`/${id}`);
          return response;
        }))
 
