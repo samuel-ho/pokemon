@@ -1,10 +1,40 @@
 import pokeApi from "../apis/PokeApi";
-import { FETCH_SQUIRTLE } from "../constants/starterPokemonReducer.constant";
-import { FETCH_CHARMANDER } from "../constants/starterPokemonReducer.constant";
-import { FETCH_BULBASAUR } from "../constants/starterPokemonReducer.constant";
-import axios from 'axios';
+import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
 
-export const fetchSquirtle = () => async (dispatch) => {
+export const fetchStarterPokemon = (arr) => async (dispatch) => {
+  var payload = [];
+  for await (let num of arr) {
+    var response = await pokeApi.get(`/pokemon/${num}`);
+    payload.push(response);
+  }
+  dispatch({
+    type: FETCH_STARTER_POKEMON,
+    payload,
+  });
+};
+
+const generateRandomNum = () => {
+  var randomNum;
+  randomNum = Math.floor(Math.random() * 811) + 1;
+  return randomNum;
+};
+
+export const fetchRandomPokemon = () => async (dispatch) => {
+  // const pokemonLimit = await pokeApi.get('/pokemon-species/?limit=0')
+
+  const randomNum = generateRandomNum();
+  const payload = await pokeApi.get(`/pokemon/${randomNum}`);
+  dispatch({
+    type: FETCH_RANDOM_POKEMON,
+    payload
+  });
+};
+
+
+
+/** Solution 0
+ * export const fetchSquirtle = () => async (dispatch) => {
   const response = await pokeApi.get(`/pokemon/7`);
   console.log(response)
   dispatch({
@@ -28,9 +58,7 @@ export const fetchBulbasaur = () => async (dispatch) => {
     payload: response.data
   });
 };
-
-
-
+ */
 
 /** 
  * Solution 1:
@@ -81,7 +109,7 @@ export const fetchBulbasaur = () => async (dispatch) => {
        if rejected, returns nothing
        *
        const payload = Promise.all( arr.map(async id => {
-         const response = await pokeApi.get(`/pokemon/${id}`);
+         const response = await pokeApi.get(`/${id}`);
          return response;
        }))
 
