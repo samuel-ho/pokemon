@@ -11,24 +11,11 @@
   
   .pokemon-card > .img-container {
     height: 60%;
-    overflow: hidden;
-    text-align: center;
     background: #6caddc;
   }
+  
   .pokemon-card > .img-container > img {
     width: 100%;
-  }
-  
-  .pokemon-card > .content {
-    font-size: 15px;
-  }
-  
-  .pokemon-card > .content > ul {
-    list-style-type: none;
-  }
-  
-  .pokemon-card > .content > ul > li {
-    margin-top: 18px;
   }
   
   .pokemon-img {
