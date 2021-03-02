@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import "./App.css";
 import { fetchStarterPokemon } from "./actions/index";
 import { fetchRandomPokemon } from "./actions/index";
 import Pokemon from "./components/Pokemon";
+import "./App.css";
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchStarterPokemon(["7", "4", "1"]);
   }
 
-  // Refactor: the rendering/displaying of cards could be in a page
   renderPokemon() {
     return this.props.starterPokemon.map((pokemon, id) => {
       return (
@@ -30,9 +29,11 @@ class App extends Component {
   render() {
     return (
       <>
-        <h1> Pokemon List </h1>
-        <ul className="starter-list">{this.renderPokemon()}</ul>
-      <button onClick={() => this.props.fetchRandomPokemon()}> Find Random Pokemon </button>
+        <h1 className="pokemon-header"> Pokemons </h1>
+        <ul className="pokemon-list">{this.renderPokemon()}</ul>
+        <button className="find-button" onClick={() => this.props.fetchRandomPokemon()}>
+          Find Random Pokemon
+        </button>
       </>
     );
   }
@@ -46,5 +47,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   fetchStarterPokemon,
-  fetchRandomPokemon
+  fetchRandomPokemon,
 })(App);

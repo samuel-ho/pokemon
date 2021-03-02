@@ -5,7 +5,7 @@ function PokemonCard({ img, name, height, weight, baseExperience }) {
   return (
     <div className="pokemon-card">
       <div className="img-container">
-        <img className="pokemon-img" alt="No Image" src={img} />
+        <img className="pokemon-img" alt="Front_Image" src={img} />
       </div>
       <div className="pokemon-content">
         <ul>
