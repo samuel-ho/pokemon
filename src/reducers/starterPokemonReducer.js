@@ -8,12 +8,11 @@ export default (state = [], action) => {
       return newState;
 
     case FETCH_RANDOM_POKEMON:
-      const copyOfState = [...state]
-      if(copyOfState.length === 3) {
+      const copyOfState = [...state];
+      if (copyOfState.length === 3) {
         copyOfState.push(action.payload);
         return copyOfState;
-      }
-      else if(copyOfState.length === 4) {
+      } else {
         copyOfState.pop();
         copyOfState.push(action.payload);
         return copyOfState;
@@ -21,7 +20,7 @@ export default (state = [], action) => {
 
     default:
       return state;
-  };
+  }
 };
 
 /*

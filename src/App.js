@@ -30,8 +30,8 @@ class App extends Component {
   render() {
     return (
       <>
-        <h1> Pokemon List </h1>
-        <ul className="starter-list">{this.renderPokemon()}</ul>
+        <h1 className="header"> Pokemons </h1>
+        <ul className="pokemon-list">{this.renderPokemon()}</ul>
       <button onClick={() => this.props.fetchRandomPokemon()}> Find Random Pokemon </button>
       </>
     );
