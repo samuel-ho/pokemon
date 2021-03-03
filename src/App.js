@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { fetchStarterPokemon } from "./actions/index";
 import { fetchRandomPokemon } from "./actions/index";
 import Pokemon from "./components/Pokemon/Pokemon";
-import Header from './components/Header/Header';
-import Button from './components/Button/Button';
+import Header from "./components/Header/Header";
+import Button from "./components/Button/Button";
 import "./App.css";
 
 class App extends Component {
@@ -32,10 +32,12 @@ class App extends Component {
     return (
       <>
         <Header> Pokemon </Header>
-        <ul className="pokemon-list">{this.renderPokemon()}</ul>
-        <Button onClick={() => this.props.fetchRandomPokemon()}>
-          Find Random Pokemon
-        </Button>
+        <ul className="pokemon-list">
+          {this.renderPokemon()}
+          <Button onClick={() => this.props.fetchRandomPokemon()}>
+            Find Random Pokemon
+          </Button>
+        </ul>
       </>
     );
   }
