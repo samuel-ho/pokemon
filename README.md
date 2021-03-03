@@ -4,7 +4,11 @@ Pokemon Finder is a page that displays three starter Pokemon cards and allows us
 
 ## Getting Started
 
-In the project directory, you can run:
+Install the project dependencies by running
+
+### yarn
+
+Once installation is complete, you can run (in the project directory):
 
 ### yarn start
 
