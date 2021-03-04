@@ -26,6 +26,17 @@ class App extends Component {
         />
       );
     });
+
+    // create a variable if index is greater than 2 // Boolean
+    // randomPokemon={isRandomPokemon}
+    // if index is greater than 2, then pass the randomPokemon as a prop
+  
+    // Could use a selector
+    // If you have a big array, instead of using filter, you could use a selector
+    // a place to write the logic out
+    // useSelector()
+    // selector goes in a selector folders
+    // selector takes care of Boolean logic
   }
 
   render() {
