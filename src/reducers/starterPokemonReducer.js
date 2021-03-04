@@ -3,11 +3,10 @@ import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constan
 
 export default (state = [], action) => {
   let stateCopy = [...state];
-  
+
   switch (action.type) {
     case FETCH_STARTER_POKEMON:
-      stateCopy = stateCopy.concat(action.payload);
-      return stateCopy;
+      return stateCopy.concat(action.payload);
 
     case FETCH_RANDOM_POKEMON:
       if (stateCopy.length === 3) {
