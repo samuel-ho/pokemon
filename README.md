@@ -17,8 +17,6 @@ Open [http://localhost:3000] to view it in the browser.
 
 ## Improvements
 
-### Refactor
-To add another layer of reusability, I would create a reusable button by placing a button in its own component (if more buttons were needed on the page) and same with the header. 
 To get the exact number of different Pokemon that the pokeApi offers, I would find an API that returns property related to the limit or count of total Pokemon. 
 I would capitalize the name of the name property. 
 In addition, I would place the rendering/displaying of Pokemon cards in a Page component. 
