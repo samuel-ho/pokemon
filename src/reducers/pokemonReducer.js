@@ -3,25 +3,25 @@ import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constan
 
 const initialState = {
   starterPokemon: [],
-  randomPokemon: {}
-}
+  randomPokemon: {},
+};
 
 export default (state = initialState, action) => {
   
   switch (action.type) {
     case FETCH_STARTER_POKEMON:
-      let stateCopy = {...state};
+      let stateCopy = { ...state };
       let updatedPokemon = stateCopy.starterPokemon.concat(action.payload);
       return {
         ...state,
-        starterPokemon: updatedPokemon
-      }
+        starterPokemon: updatedPokemon,
+      };
 
     case FETCH_RANDOM_POKEMON:
-    return {
-    ...state,
-    randomPokemon: action.payload
-    }
+      return {
+        ...state,
+        randomPokemon: action.payload,
+      };
 
     default:
       return state;

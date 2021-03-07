@@ -1,9 +1,9 @@
 .btn {
-    background-color: red;
-    border-radius: 35px;
-    color: white;
-    cursor: pointer;
-    font-weight: 900;
-    margin-bottom: 40px;
-    padding: 12px 19px;
+  background-color: red;
+  border-radius: 35px;
+  color: white;
+  cursor: pointer;
+  font-weight: 900;
+  margin-bottom: 40px;
+  padding: 12px 19px;
 }
