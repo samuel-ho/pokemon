@@ -25,10 +25,11 @@ const generateRandomNum = () => {
 
 export const fetchRandomPokemon = () => async (dispatch) => {
   const randomNum = generateRandomNum();
-  const payload = await pokeApi.get(`/pokemon/${randomNum}`);
+  const response = await pokeApi.get(`/pokemon/${randomNum}`);
+  const payload = response.data
 
   dispatch({
     type: FETCH_RANDOM_POKEMON,
-    payload,
+    payload
   });
 };

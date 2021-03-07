@@ -13,7 +13,7 @@ class App extends Component {
     this.props.fetchStarterPokemon(["7", "4", "1"]);
   }
 
-  renderPokemon() {
+  renderStarterPokemon() {
     return this.props.starterPokemon.map((pokemon, id) => {
       return (
         <Pokemon
@@ -28,15 +28,27 @@ class App extends Component {
     });
   }
 
+  renderRandomPokemon() {
+    return (
+      <Pokemon
+        name={this.props.randomPokemon.name}
+        height={this.props.randomPokemon.height}
+        weight={this.props.randomPokemon.weight}
+        baseExperience={this.props.randomPokemon.base_experience}
+      />
+    );
+  }
+
   render() {
     return (
       <>
         <Header> Pokemon </Header>
         <ul className="pokemon-list">
-          {this.renderPokemon()}
           <Button onClick={() => this.props.fetchRandomPokemon()}>
             Find Random Pokemon
           </Button>
+          {this.renderRandomPokemon()}
+          {this.renderStarterPokemon()}
         </ul>
       </>
     );
@@ -45,7 +57,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    starterPokemon: state.starterPokemon,
+    starterPokemon: state.pokemon.starterPokemon,
+    randomPokemon: state.pokemon.randomPokemon,
   };
 };
 
