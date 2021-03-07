@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { fetchStarterPokemon } from "./actions/index";
@@ -8,13 +8,14 @@ import Header from "./components/Header/Header";
 import Button from "./components/Button/Button";
 import "./App.css";
 
-class App extends Component {
-  componentDidMount() {
-    this.props.fetchStarterPokemon(["7", "4", "1"]);
-  }
+function App({ fetchStarterPokemon, fetchRandomPokemon, starterPokemon, randomPokemon}) {
 
-  renderStarterPokemon() {
-    return this.props.starterPokemon.map((pokemon, id) => {
+  useEffect(() => {
+    fetchStarterPokemon(["7", "4", "1"]);
+  }, [fetchStarterPokemon])
+
+  const renderStarterPokemon = (pokemonArr) => {
+    return starterPokemon.map((pokemon, id) => {
       return (
         <Pokemon
           key={id}
@@ -28,32 +29,30 @@ class App extends Component {
     });
   }
 
-  renderRandomPokemon() {
+  const renderRandomPokemon = (pokemonObj) => {
     return (
       <Pokemon
-        name={this.props.randomPokemon.name}
-        height={this.props.randomPokemon.height}
-        weight={this.props.randomPokemon.weight}
-        baseExperience={this.props.randomPokemon.base_experience}
+        name={randomPokemon.name}
+        height={randomPokemon.height}
+        weight={randomPokemon.weight}
+        baseExperience={randomPokemon.base_experience}
       />
     );
   }
 
-  render() {
     return (
       <>
         <Header> Pokemon </Header>
         <ul className="pokemon-list">
-          <Button onClick={() => this.props.fetchRandomPokemon()}>
+          <Button onClick={() => fetchRandomPokemon()}>
             Find Random Pokemon
           </Button>
-          {this.renderRandomPokemon()}
-          {this.renderStarterPokemon()}
+          {renderRandomPokemon()}
+          {renderStarterPokemon()}
         </ul>
       </>
     );
   }
-}
 
 const mapStateToProps = (state) => {
   return {
