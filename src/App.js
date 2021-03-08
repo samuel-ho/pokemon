@@ -29,17 +29,28 @@ function App({ fetchStarterPokemon, fetchRandomPokemon, starterPokemon, randomPo
     });
   }
 
-  const renderRandomPokemon = (pokemonObj) => {
-    return (
-      <Pokemon
-        name={randomPokemon.name}
-        height={randomPokemon.height}
-        weight={randomPokemon.weight}
-        baseExperience={randomPokemon.base_experience}
-      />
-    );
+  const returnImageLink = (imageObj) => {
+    for(let imageKey in randomPokemon.sprites) {
+      const frontImg = randomPokemon.sprites['front_default']
+      return frontImg;
+    }
   }
 
+  const renderRandomPokemon = (pokemonObj) => {
+    if(Object.keys(randomPokemon).length === 0) {
+      return null;
+    } else {
+      return (
+        <Pokemon
+          img={returnImageLink()}
+          name={randomPokemon.name}
+          height={randomPokemon.height}
+          weight={randomPokemon.weight}
+          baseExperience={randomPokemon.base_experience}
+        />
+      );
+    }
+  }
     return (
       <>
         <Header> Pokemon </Header>
