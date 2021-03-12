@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import { fetchStarterPokemon } from "./actions/index";
@@ -6,13 +6,14 @@ import { fetchRandomPokemon } from "./actions/index";
 import Pokemon from "./components/Pokemon/Pokemon";
 import Header from "./components/Header/Header";
 import Button from "./components/Button/Button";
+import Modal from "./components/Modal/Modal";
 import "./App.css";
 
-function App({ fetchStarterPokemon, fetchRandomPokemon, starterPokemon, randomPokemon}) {
-
+function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPokemon}) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
-    fetchStarterPokemon(["7", "4", "1"]);
-  }, [fetchStarterPokemon])
+    fetchStarterPokemon(["0", "4", "7"], isModalOpen, setIsModalOpen);
+  }, [fetchStarterPokemon]);
 
   const renderStarterPokemon = (pokemonArr) => {
     return starterPokemon.map((pokemon, id) => {
@@ -27,17 +28,17 @@ function App({ fetchStarterPokemon, fetchRandomPokemon, starterPokemon, randomPo
         />
       );
     });
-  }
+  };
 
   const returnImageLink = (imageObj) => {
-    for(let imageKey in randomPokemon.sprites) {
-      const frontImg = randomPokemon.sprites['front_default']
+    for (let imageKey in randomPokemon.sprites) {
+      const frontImg = randomPokemon.sprites["front_default"];
       return frontImg;
     }
-  }
+  };
 
   const renderRandomPokemon = (pokemonObj) => {
-    if(Object.keys(randomPokemon).length === 0) {
+    if (Object.keys(randomPokemon).length === 0) {
       return null;
     } else {
       return (
@@ -50,20 +51,37 @@ function App({ fetchStarterPokemon, fetchRandomPokemon, starterPokemon, randomPo
         />
       );
     }
-  }
-    return (
-      <>
-        <Header> Pokemon </Header>
-        <ul className="pokemon-list">
-          <Button onClick={() => fetchRandomPokemon()}>
-            Find Random Pokemon
-          </Button>
-          {renderRandomPokemon()}
-          {renderStarterPokemon()}
-        </ul>
-      </>
-    );
-  }
+  };
+
+  const sortStarterPokemonByName = (pokemonArr) => {
+    const alphabeticStarterPokemon = starterPokemon.sort((a, b) => {
+      if (a.data.name < b.data.name) return -1;
+      if (a.data.name > b.data.name) return 1;
+      return 0;
+    });
+  };
+
+  const onClose = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <>
+      <Header> Pokemon </Header>
+      <ul className="pokemon-list">
+        <Button onClick={() => fetchRandomPokemon(isModalOpen, setIsModalOpen)}>
+          Find Random Pokemon
+        </Button>
+        <Button onClick={() => setIsModalOpen(true)}>Open Modal</Button>
+        {renderRandomPokemon()}
+        {renderStarterPokemon()}
+      </ul>
+      <Modal isModalOpen={isModalOpen} onClose={onClose}>
+        Random Pokemon Not Found
+      </Modal>
+    </>
+  );
+}
 
 const mapStateToProps = (state) => {
   return {
