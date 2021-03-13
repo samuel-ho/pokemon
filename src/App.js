@@ -12,7 +12,7 @@ import "./App.css";
 function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPokemon}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
-    fetchStarterPokemon(["0", "4", "7"], isModalOpen, setIsModalOpen);
+    fetchStarterPokemon(["7", "4", "1"], isModalOpen, setIsModalOpen);
   }, [fetchStarterPokemon]);
 
   const renderStarterPokemon = (pokemonArr) => {
@@ -31,10 +31,10 @@ function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPoke
   };
 
   const returnImageLink = (imageObj) => {
-    for (let imageKey in randomPokemon.sprites) {
-      const frontImg = randomPokemon.sprites["front_default"];
-      return frontImg;
-    }
+    const { front_default, back_default, front_shiny, back_shiny } = randomPokemon.sprites
+    if(front_default) return front_default;
+    if(!front_default && back_default) return back_default;
+      return null;
   };
 
   const renderRandomPokemon = (pokemonObj) => {
@@ -64,6 +64,8 @@ function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPoke
   const onClose = () => {
     setIsModalOpen(false);
   };
+
+  console.log(randomPokemon, "randomPokemon")
 
   return (
     <>
