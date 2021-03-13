@@ -9,8 +9,7 @@ import Button from "./components/Button/Button";
 import "./App.css";
 
 const renderPokemon = ({ data: pokemon }) => {
-  if (!pokemon) return null;
-  return (
+  return pokemon && (
     <Pokemon
       key={pokemon.id}
       img={pokemon.sprites.front_default}
