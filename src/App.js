@@ -9,26 +9,30 @@ import Button from "./components/Button/Button";
 import Modal from "./components/Modal/Modal";
 import "./App.css";
 
-function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPokemon}) {
+const renderPokemon = ({ data: pokemon }) => (
+  <Pokemon
+    key={pokemon.id}
+    img={pokemon.sprites.front_default}
+    name={pokemon.name}
+    height={pokemon.height}
+    weight={pokemon.weight}
+    baseExperience={pokemon.base_experience}
+  />
+);
+
+function App({
+  fetchStarterPokemon,
+  fetchRandomPokemon,
+  starterPokemon,
+  randomPokemon,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     fetchStarterPokemon(["0", "4", "7"], isModalOpen, setIsModalOpen);
   }, [fetchStarterPokemon]);
 
-  const renderStarterPokemon = (pokemonArr) => {
-    return starterPokemon.map((pokemon, id) => {
-      return (
-        <Pokemon
-          key={id}
-          img={pokemon.data.sprites.front_default}
-          name={pokemon.data.name}
-          height={pokemon.data.height}
-          weight={pokemon.data.weight}
-          baseExperience={pokemon.data.base_experience}
-        />
-      );
-    });
-  };
+  const renderStarterPokemon = (pokemonArr) =>
+    starterPokemon.map((pokeObj) => renderPokemon(pokeObj));
 
   const returnImageLink = (imageObj) => {
     for (let imageKey in randomPokemon.sprites) {

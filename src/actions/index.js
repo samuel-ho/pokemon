@@ -28,12 +28,14 @@ const generateRandomNum = () => {
   return randomNum;
 };
 
+// 
 export const fetchRandomPokemon = (isModalOpen, setIsModalOpen) => async (dispatch) => {
   
   try {
     const randomNum = generateRandomNum();
     const response = await pokeApi.get(`/pokemon/${randomNum}`);
-    var payload = response.data;
+    console.log(response, "response");
+    var payload = response;
   } catch {
     setIsModalOpen(true);
   }
