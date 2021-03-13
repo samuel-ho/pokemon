@@ -31,10 +31,8 @@ function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPoke
   };
 
   const returnImageLink = (imageObj) => {
-    const { front_default, back_default, front_shiny, back_shiny } = randomPokemon.sprites
-    if(front_default) return front_default;
-    if(!front_default && back_default) return back_default;
-      return null;
+    const { front_default, back_default } = randomPokemon.sprites
+    return front_default ? front_default : back_default
   };
 
   const renderRandomPokemon = (pokemonObj) => {
