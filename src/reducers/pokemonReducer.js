@@ -10,8 +10,8 @@ export default (state = initialState, action) => {
   
   switch (action.type) {
     case FETCH_STARTER_POKEMON:
-      let stateCopy = { ...state };
-      let updatedPokemon = stateCopy.starterPokemon.concat(action.payload);
+      let pokemon = { ...state };
+      let updatedPokemon = pokemon.starterPokemon.concat(action.payload);
       return {
         ...state,
         starterPokemon: updatedPokemon,
