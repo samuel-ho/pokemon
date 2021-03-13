@@ -10,16 +10,18 @@ import Modal from "./components/Modal/Modal";
 import "./App.css";
 
 const renderPokemon = ({ data: pokemon }) => {
-  if(!pokemon) return null;
-  return <Pokemon
-    key={pokemon.id}
-    img={pokemon.sprites.front_default}
-    name={pokemon.name}
-    height={pokemon.height}
-    weight={pokemon.weight}
-    baseExperience={pokemon.base_experience}
-  />
-}
+  if (!pokemon) return null;
+  return (
+    <Pokemon
+      key={pokemon.id}
+      img={pokemon.sprites.front_default}
+      name={pokemon.name}
+      height={pokemon.height}
+      weight={pokemon.weight}
+      baseExperience={pokemon.base_experience}
+    />
+  );
+};
 
 function App({
   fetchStarterPokemon,
@@ -31,21 +33,32 @@ function App({
 
   useEffect(() => {
     fetchStarterPokemon(["1", "4", "7"], setIsModalOpen);
-  }, [fetchStarterPokemon]);
+  }, [fetchStarterPokemon, setIsModalOpen]);
 
   const renderStarterPokemon = (pokemonArr) =>
-    pokemonArr.map((pokeObj) => renderPokemon(pokeObj));
+    pokemonArr.map(pokeObj => renderPokemon(pokeObj));
 
   // not less code
   const onClose = () => {
     setIsModalOpen(false);
   };
 
+  const filteredStarterPokemon = (pokemonArr) => {
+    // const filteredPokemon = pokemonArr.filter(pokemon => pokemon.data.name === 'bulbasaur')
+    const filteredPokemon = [];
+    for (let pokemon of pokemonArr) {
+      if (pokemon.data.name === "b") {
+        filteredPokemon.push(pokemon);
+        return;
+      }
+    }
+  };
+
   return (
     <>
       <Header> Pokemon </Header>
       <ul className="pokemon-list">
-        <Button onClick={() => fetchRandomPokemon(isModalOpen, setIsModalOpen)}>
+        <Button onClick={() => fetchRandomPokemon(setIsModalOpen)}>
           Find Random Pokemon
         </Button>
         <Button onClick={() => setIsModalOpen(true)}>Open Modal</Button>
@@ -55,14 +68,15 @@ function App({
       <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         Random Pokemon Not Found
       </Modal>
+      {filteredStarterPokemon(starterPokemon)}
     </>
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ pokemon }) => {
   return {
-    starterPokemon: state.pokemon.starterPokemon,
-    randomPokemon: state.pokemon.randomPokemon,
+    starterPokemon: pokemon.starterPokemon,
+    randomPokemon: pokemon.randomPokemon,
   };
 };
 
