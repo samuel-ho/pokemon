@@ -7,12 +7,12 @@ export default function Modal({ isModalOpen, onClose, children }) {
     if(!isModalOpen) return null;
 
     return ReactDom.createPortal(
-        <div>
+        <>
             <div className="overlay" />
             <div className="modal">{children}
             <Button onClick={() => onClose()}> Close </Button>
             </div>
-        </div>,
+        </>,
         document.getElementById('portal')
     )
 }

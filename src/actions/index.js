@@ -1,24 +1,25 @@
 import pokeApi from "../apis/PokeApi";
 import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
 import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
-import Modal from '../components/Modal/Modal';
+import Modal from "../components/Modal/Modal";
 
-export const fetchStarterPokemon = (arr, isModalOpen, setIsModalOpen) => async (dispatch) => {
-  const payload = [];
-
+export const fetchStarterPokemon = (arr, setIsModalOpen) => async (
+  dispatch
+) => {
   try {
+    const payload = [];
     for await (let num of arr) {
-    const response = await pokeApi.get(`/pokemon/${num}`);
-    payload.push(response);
-  }
+      const response = await pokeApi.get(`/pokemon/${num}`);
+      payload.push(response);
+    }
+
+    dispatch({
+      type: FETCH_STARTER_POKEMON,
+      payload,
+    });
   } catch {
     setIsModalOpen(true);
   }
-
-  dispatch({
-    type: FETCH_STARTER_POKEMON,
-    payload,
-  });
 };
 
 const generateRandomNum = () => {
@@ -28,9 +29,9 @@ const generateRandomNum = () => {
   return randomNum;
 };
 
-// 
-export const fetchRandomPokemon = (isModalOpen, setIsModalOpen) => async (dispatch) => {
-  
+export const fetchRandomPokemon = (isModalOpen, setIsModalOpen) => async (
+  dispatch
+) => {
   try {
     const randomNum = generateRandomNum();
     const response = await pokeApi.get(`/pokemon/${randomNum}`);

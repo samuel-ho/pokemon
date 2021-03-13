@@ -9,8 +9,9 @@ import Button from "./components/Button/Button";
 import Modal from "./components/Modal/Modal";
 import "./App.css";
 
-const renderPokemon = ({ data: pokemon }) => (
-  <Pokemon
+const renderPokemon = ({ data: pokemon }) => {
+  if(!pokemon) return null;
+  return <Pokemon
     key={pokemon.id}
     img={pokemon.sprites.front_default}
     name={pokemon.name}
@@ -18,7 +19,7 @@ const renderPokemon = ({ data: pokemon }) => (
     weight={pokemon.weight}
     baseExperience={pokemon.base_experience}
   />
-);
+}
 
 function App({
   fetchStarterPokemon,
@@ -27,44 +28,15 @@ function App({
   randomPokemon,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
-    fetchStarterPokemon(["0", "4", "7"], isModalOpen, setIsModalOpen);
+    fetchStarterPokemon(["1", "4", "7"], setIsModalOpen);
   }, [fetchStarterPokemon]);
 
   const renderStarterPokemon = (pokemonArr) =>
-    starterPokemon.map((pokeObj) => renderPokemon(pokeObj));
+    pokemonArr.map((pokeObj) => renderPokemon(pokeObj));
 
-  const returnImageLink = (imageObj) => {
-    for (let imageKey in randomPokemon.sprites) {
-      const frontImg = randomPokemon.sprites["front_default"];
-      return frontImg;
-    }
-  };
-
-  const renderRandomPokemon = (pokemonObj) => {
-    if (Object.keys(randomPokemon).length === 0) {
-      return null;
-    } else {
-      return (
-        <Pokemon
-          img={returnImageLink()}
-          name={randomPokemon.name}
-          height={randomPokemon.height}
-          weight={randomPokemon.weight}
-          baseExperience={randomPokemon.base_experience}
-        />
-      );
-    }
-  };
-
-  const sortStarterPokemonByName = (pokemonArr) => {
-    const alphabeticStarterPokemon = starterPokemon.sort((a, b) => {
-      if (a.data.name < b.data.name) return -1;
-      if (a.data.name > b.data.name) return 1;
-      return 0;
-    });
-  };
-
+  // not less code
   const onClose = () => {
     setIsModalOpen(false);
   };
@@ -77,10 +49,10 @@ function App({
           Find Random Pokemon
         </Button>
         <Button onClick={() => setIsModalOpen(true)}>Open Modal</Button>
-        {renderRandomPokemon()}
-        {renderStarterPokemon()}
+        {renderPokemon(randomPokemon)}
+        {renderStarterPokemon(starterPokemon)}
       </ul>
-      <Modal isModalOpen={isModalOpen} onClose={onClose}>
+      <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         Random Pokemon Not Found
       </Modal>
     </>
