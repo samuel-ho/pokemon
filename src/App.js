@@ -38,11 +38,6 @@ function App({
   const renderStarterPokemon = (pokemonArr) =>
     pokemonArr.map(pokeObj => renderPokemon(pokeObj));
 
-  // not less code
-  const onClose = () => {
-    setIsModalOpen(false);
-  };
-
   const filteredStarterPokemon = (pokemonArr) => {
     // const filteredPokemon = pokemonArr.filter(pokemon => pokemon.data.name === 'bulbasaur')
     const filteredPokemon = [];
@@ -53,6 +48,16 @@ function App({
       }
     }
   };
+
+  const sortStarterPokemonByName = pokemonArr => {
+    const sortedArr = [...pokemonArr];
+    sortedArr.sort((a, b) => {
+      console.log(a.data.name, "a.data.name")
+      if(a.data.name < b.data.name) return -1;
+      if(a.data.name > b.data.name) return 1;
+      return 0
+    })
+  }
 
   return (
     <>
