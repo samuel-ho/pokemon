@@ -1,5 +1,4 @@
-import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
-import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { FETCH_STARTER_POKEMON, FETCH_RANDOM_POKEMON } from "../constants";
 
 const initialState = {
   starterPokemon: [],

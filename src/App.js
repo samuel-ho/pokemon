@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { fetchStarterPokemon } from "./actions/index";
-import { fetchRandomPokemon } from "./actions/index";
-import Pokemon from "./components/Pokemon/Pokemon";
-import Header from "./components/Header/Header";
-import Button from "./components/Button/Button";
+import { fetchStarterPokemon, fetchRandomPokemon } from "./actions";
+import Pokemon from "./components/Pokemon";
+import Header from "./components/Header";
+import Button from "./components/Button";
+import { pokemonIds } from './constants/';
 import "./App.css";
 
 const renderPokemon = ({ data: pokemon }) => {
@@ -28,7 +28,7 @@ function App({
   randomPokemon,
 }) {
   useEffect(() => {
-    fetchStarterPokemon(["7", "4", "1"]);
+    fetchStarterPokemon(pokemonIds);
   }, [fetchStarterPokemon]);
 
   const renderStarterPokemon = (pokemonArr) =>

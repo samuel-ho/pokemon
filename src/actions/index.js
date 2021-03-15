@@ -1,6 +1,5 @@
 import pokeApi from "../apis/PokeApi";
-import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
-import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { FETCH_STARTER_POKEMON, FETCH_RANDOM_POKEMON } from "../constants";
 
 export const fetchStarterPokemon = (arr) => async (dispatch) => {
   const payload = [];
