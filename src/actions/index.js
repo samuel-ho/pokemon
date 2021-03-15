@@ -1,7 +1,6 @@
 import pokeApi from "../apis/PokeApi";
 import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
 import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
-import Modal from "../components/Modal/Modal";
 
 export const fetchStarterPokemon = (arr, setIsModalOpen) => async (
   dispatch

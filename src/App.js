@@ -32,7 +32,7 @@ function App({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetchStarterPokemon(["1", "4", "7"], setIsModalOpen);
+    fetchStarterPokemon(["7", "4", "1"], setIsModalOpen);
   }, [fetchStarterPokemon, setIsModalOpen]);
 
   const renderStarterPokemon = (pokemonArr) =>
@@ -63,17 +63,20 @@ function App({
     <>
       <Header> Pokemon </Header>
       <ul className="pokemon-list">
+        <div className="wrapper"> 
         <Button onClick={() => fetchRandomPokemon(setIsModalOpen)}>
           Find Random Pokemon
         </Button>
-        <Button onClick={() => setIsModalOpen(true)}>Open Modal</Button>
+        <Header> Random Pokemon </Header>
         {renderPokemon(randomPokemon)}
+        <Header> Starter Pokemon </Header>
         {renderStarterPokemon(starterPokemon)}
+        </div>
       </ul>
       <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         Random Pokemon Not Found
       </Modal>
-      {filteredStarterPokemon(starterPokemon)}
+      {sortStarterPokemonByName(starterPokemon)}
     </>
   );
 }

@@ -4,6 +4,9 @@
   position: sticky;
   top: 0;
   text-align: center;
-  z-index: 1
+  z-index: 1;
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
