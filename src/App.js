@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-import { fetchStarterPokemon } from "./actions/index";
-import { fetchRandomPokemon } from "./actions/index";
-import Pokemon from "./components/Pokemon/Pokemon";
+import { fetchStarterPokemon, fetchRandomPokemon } from "./actions";
+import Pokemon from "./components/Pokemon";
 import MainHeader from "./components/MainHeader";
-import Header from "./components/Header";
-import Button from "./components/Button/Button";
-import Modal from "./components/Modal/Modal";
+import Header from './components/Header';
+import Button from "./components/Button";
+import { pokemonIds } from './constants/';
 import "./App.css";
 
 const renderPokemon = ({ data: pokemon }) => {
-  if (!pokemon) return null;
-  return (
+  return pokemon && (
     <Pokemon
       key={pokemon.id}
       img={pokemon.sprites.front_default}
@@ -30,33 +28,27 @@ function App({
   starterPokemon,
   randomPokemon,
 }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   useEffect(() => {
-    fetchStarterPokemon(["7", "4", "1"], setIsModalOpen);
-  }, [fetchStarterPokemon, setIsModalOpen]);
+    fetchStarterPokemon(pokemonIds);
+  }, [fetchStarterPokemon, pokemonIds]);
 
   const renderStarterPokemon = (pokemonArr) =>
     pokemonArr.map((pokeObj) => renderPokemon(pokeObj));
 
   return (
     <>
+      <MainHeader> Pokemon </MainHeader>
       <ul className="pokemon-list">
-        <MainHeader> Pokemon </MainHeader>
-        <div className="wrapper">
-          <Button onClick={() => fetchRandomPokemon(setIsModalOpen)}>
-            Find Random Pokemon
-          </Button>
-          <Header> Random Pokemon </Header>
-          {renderPokemon(randomPokemon)}
-          <Header> Starter Pokemon </Header>
-          {renderStarterPokemon(starterPokemon)}
+        <div className="wrapper"> 
+        <Button onClick={() => fetchRandomPokemon()}>
+          Find Random Pokemon
+        </Button>
+        <Header>Random Pokemon</Header>
+        {renderPokemon(randomPokemon)}
+        <Header>Starter Pokemon</Header>
+        {renderStarterPokemon(starterPokemon)}
         </div>
       </ul>
-      <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        Random Pokemon Not Found
-      </Modal>
-      {sortStarterPokemonByName(starterPokemon)}
     </>
   );
 }

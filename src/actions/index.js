@@ -1,11 +1,9 @@
 import pokeApi from "../apis/PokeApi";
-import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
-import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { FETCH_STARTER_POKEMON, FETCH_RANDOM_POKEMON } from "../constants";
 
 export const fetchStarterPokemon = (arr, setIsModalOpen) => async (
   dispatch
 ) => {
-  try {
     const payload = [];
     for await (let num of arr) {
       const response = await pokeApi.get(`/pokemon/${num}`);
@@ -16,9 +14,7 @@ export const fetchStarterPokemon = (arr, setIsModalOpen) => async (
       type: FETCH_STARTER_POKEMON,
       payload,
     });
-  } catch {
-    setIsModalOpen(true);
-  }
+  
 };
 
 const generateRandomNum = () => {
@@ -29,7 +25,6 @@ const generateRandomNum = () => {
 };
 
 export const fetchRandomPokemon = (setIsModalOpen) => async (dispatch) => {
-  try {
     const randomNum = generateRandomNum();
     const response = await pokeApi.get(`/pokemon/${randomNum}`);
     var payload = response;
@@ -38,7 +33,4 @@ export const fetchRandomPokemon = (setIsModalOpen) => async (dispatch) => {
       type: FETCH_RANDOM_POKEMON,
       payload,
     });
-  } catch {
-    setIsModalOpen(true);
-  }
 };

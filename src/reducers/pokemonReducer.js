@@ -1,5 +1,4 @@
-import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
-import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { FETCH_STARTER_POKEMON, FETCH_RANDOM_POKEMON } from "../constants";
 
 const initialState = {
   starterPokemon: [],
@@ -10,8 +9,8 @@ export default (state = initialState, action) => {
   
   switch (action.type) {
     case FETCH_STARTER_POKEMON:
-      let stateCopy = { ...state };
-      let updatedPokemon = stateCopy.starterPokemon.concat(action.payload);
+      let pokemon = { ...state };
+      let updatedPokemon = pokemon.starterPokemon.concat(action.payload);
       return {
         ...state,
         starterPokemon: updatedPokemon,
