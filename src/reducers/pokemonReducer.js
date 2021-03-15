@@ -1,5 +1,5 @@
 import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
-import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { FETCH_RANDOM_POKEMON, SORT_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
 
 const initialState = {
   starterPokemon: [],
@@ -22,6 +22,14 @@ export default (state = initialState, action) => {
         ...state,
         randomPokemon: action.payload,
       };
+
+    case SORT_STARTER_POKEMON:
+      let pokemon = {...state};
+      console.log(action.payload, "action.payload")
+      return {
+        ...state,
+        starterPokemon: action.payload
+      }
 
     default:
       return state;

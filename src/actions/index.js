@@ -1,13 +1,18 @@
 import pokeApi from "../apis/PokeApi";
 import { FETCH_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
 import { FETCH_RANDOM_POKEMON } from "../constants/starterPokemonReducer.constant";
+import { SORT_STARTER_POKEMON } from "../constants/starterPokemonReducer.constant";
 
 export const fetchStarterPokemon = (arr) => async (dispatch) => {
   const payload = [];
 
   for await (let num of arr) {
-    const response = await pokeApi.get(`/pokemon/${num}`);
-    payload.push(response);
+    try {
+      const response = await pokeApi.get(`/pokemon/${num}`);
+      payload.push(response);
+    } catch {
+      console.log("Fetch API error")
+    }
   }
 
   dispatch({
@@ -26,10 +31,19 @@ const generateRandomNum = () => {
 export const fetchRandomPokemon = () => async (dispatch) => {
   const randomNum = generateRandomNum();
   const response = await pokeApi.get(`/pokemon/${randomNum}`);
-  const payload = response.data;
+  const payload = response;
 
   dispatch({
     type: FETCH_RANDOM_POKEMON,
     payload,
   });
 };
+
+export const sortStarterPokemon = (arr) => {
+console.log(arr, "arr");
+ return {
+    type: SORT_STARTER_POKEMON,
+    payload: arr
+  }
+}
+

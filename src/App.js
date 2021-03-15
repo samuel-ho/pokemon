@@ -3,15 +3,18 @@ import { connect } from "react-redux";
 
 import { fetchStarterPokemon } from "./actions/index";
 import { fetchRandomPokemon } from "./actions/index";
+import { sortStarterPokemon } from './actions';
 import Pokemon from "./components/Pokemon/Pokemon";
 import Header from "./components/Header/Header";
 import Button from "./components/Button/Button";
 import "./App.css";
+import { sortByName } from "./utils/sortStarterPokemon";
 
 function App({ fetchStarterPokemon, fetchRandomPokemon, starterPokemon, randomPokemon}) {
 
   useEffect(() => {
     fetchStarterPokemon(["7", "4", "1"]);
+    
   }, [fetchStarterPokemon])
 
   const renderStarterPokemon = (pokemonArr) => {
@@ -51,6 +54,13 @@ function App({ fetchStarterPokemon, fetchRandomPokemon, starterPokemon, randomPo
       );
     }
   }
+
+  const handleSortClick = () => {
+    const sortedStarterPokemon = sortByName(starterPokemon);
+    sortStarterPokemon(sortedStarterPokemon);
+  }
+
+  console.log(starterPokemon, "starterPokemon")
     return (
       <>
         <Header> Pokemon </Header>
@@ -60,6 +70,7 @@ function App({ fetchStarterPokemon, fetchRandomPokemon, starterPokemon, randomPo
           </Button>
           {renderRandomPokemon()}
           {renderStarterPokemon()}
+          {sortStarterPokemon(starterPokemon)}
         </ul>
       </>
     );
