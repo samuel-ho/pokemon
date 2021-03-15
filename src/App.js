@@ -9,10 +9,15 @@ import Button from "./components/Button/Button";
 import Modal from "./components/Modal/Modal";
 import "./App.css";
 
-function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPokemon}) {
+function App({
+  fetchStarterPokemon,
+  fetchRandomPokemon,
+  starterPokemon,
+  randomPokemon,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
-    fetchStarterPokemon(["7", "4", "1"], isModalOpen, setIsModalOpen);
+    fetchStarterPokemon(["7", "4", "1"], setIsModalOpen);
   }, [fetchStarterPokemon]);
 
   const renderStarterPokemon = (pokemonArr) => {
@@ -31,8 +36,8 @@ function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPoke
   };
 
   const returnImageLink = (imageObj) => {
-    const { front_default, back_default } = randomPokemon.sprites
-    return front_default ? front_default : back_default
+    const { front_default, back_default } = randomPokemon.sprites;
+    return front_default ? front_default : back_default;
   };
 
   const renderRandomPokemon = (pokemonObj) => {
@@ -51,32 +56,18 @@ function App({fetchStarterPokemon, fetchRandomPokemon, starterPokemon,randomPoke
     }
   };
 
-  const sortStarterPokemonByName = (pokemonArr) => {
-    const alphabeticStarterPokemon = starterPokemon.sort((a, b) => {
-      if (a.data.name < b.data.name) return -1;
-      if (a.data.name > b.data.name) return 1;
-      return 0;
-    });
-  };
-
-  const onClose = () => {
-    setIsModalOpen(false);
-  };
-
-  console.log(randomPokemon, "randomPokemon")
-
   return (
     <>
       <Header> Pokemon </Header>
       <ul className="pokemon-list">
-        <Button onClick={() => fetchRandomPokemon(isModalOpen, setIsModalOpen)}>
+        <Button onClick={() => fetchRandomPokemon(setIsModalOpen)}>
           Find Random Pokemon
         </Button>
         <Button onClick={() => setIsModalOpen(true)}>Open Modal</Button>
         {renderRandomPokemon()}
         {renderStarterPokemon()}
       </ul>
-      <Modal isModalOpen={isModalOpen} onClose={onClose}>
+      <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         Random Pokemon Not Found
       </Modal>
     </>
