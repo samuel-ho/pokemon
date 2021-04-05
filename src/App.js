@@ -6,6 +6,7 @@ import Pokemon from "./components/Pokemon";
 import MainHeader from "./components/MainHeader";
 import Header from './components/Header';
 import Button from "./components/Button";
+import Stats from './components/Stats';
 import { pokemonIds } from './constants/';
 import "./App.css";
 
@@ -35,12 +36,27 @@ function App({
   const renderStarterPokemon = (pokemonArr) =>
     pokemonArr.map((pokeObj) => renderPokemon(pokeObj));
 
+  const addStarterPokemonBE = (pokemonArr, pokemonObj) => {
+    let total = 0;
+    pokemonArr.map(pokeObj => {
+      total += pokeObj.data.base_experience
+    })
+    const baseExperienceRP = pokemonObj.data ? pokemonObj.data.base_experience : 0;
+    total += baseExperienceRP
+    return total;
+  }
+
   return (
     <>
       <MainHeader> Pokemon </MainHeader>
+      <Stats/>
+      {addStarterPokemonBE(starterPokemon, randomPokemon)}
       <ul className="pokemon-list">
         <div className="wrapper"> 
-        <Button onClick={() => fetchRandomPokemon()}>
+        <Button onClick={() => {
+          fetchRandomPokemon()
+        }
+          }>
           Find Random Pokemon
         </Button>
         <Header>Random Pokemon</Header>
