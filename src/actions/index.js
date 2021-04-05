@@ -1,18 +1,20 @@
 import pokeApi from "../apis/PokeApi";
 import { FETCH_STARTER_POKEMON, FETCH_RANDOM_POKEMON } from "../constants";
 
-export const fetchStarterPokemon = (arr) => async (dispatch) => {
-  const payload = [];
+export const fetchStarterPokemon = (arr, setIsModalOpen) => async (
+  dispatch
+) => {
+    const payload = [];
+    for await (let num of arr) {
+      const response = await pokeApi.get(`/pokemon/${num}`);
+      payload.push(response);
+    }
 
-  for await (let num of arr) {
-    const response = await pokeApi.get(`/pokemon/${num}`);
-    payload.push(response);
-  }
-
-  dispatch({
-    type: FETCH_STARTER_POKEMON,
-    payload,
-  });
+    dispatch({
+      type: FETCH_STARTER_POKEMON,
+      payload,
+    });
+  
 };
 
 const generateRandomNum = () => {
@@ -22,13 +24,13 @@ const generateRandomNum = () => {
   return randomNum;
 };
 
-export const fetchRandomPokemon = () => async (dispatch) => {
-  const randomNum = generateRandomNum();
-  const response = await pokeApi.get(`/pokemon/${randomNum}`);
-  const payload = response;
+export const fetchRandomPokemon = (setIsModalOpen) => async (dispatch) => {
+    const randomNum = generateRandomNum();
+    const response = await pokeApi.get(`/pokemon/${randomNum}`);
+    var payload = response;
 
-  dispatch({
-    type: FETCH_RANDOM_POKEMON,
-    payload,
-  });
+    dispatch({
+      type: FETCH_RANDOM_POKEMON,
+      payload,
+    });
 };

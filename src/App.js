@@ -3,21 +3,24 @@ import { connect } from "react-redux";
 
 import { fetchStarterPokemon, fetchRandomPokemon } from "./actions";
 import Pokemon from "./components/Pokemon";
+import MainHeader from "./components/MainHeader";
 import Header from "./components/Header";
 import Button from "./components/Button";
-import { pokemonIds } from './constants/';
+import { pokemonIds } from "./constants/";
 import "./App.css";
 
 const renderPokemon = ({ data: pokemon }) => {
-  return pokemon && (
-    <Pokemon
-      key={pokemon.id}
-      img={pokemon.sprites.front_default}
-      name={pokemon.name}
-      height={pokemon.height}
-      weight={pokemon.weight}
-      baseExperience={pokemon.base_experience}
-    />
+  return (
+    pokemon && (
+      <Pokemon
+        key={pokemon.id}
+        img={pokemon.sprites.front_default}
+        name={pokemon.name}
+        height={pokemon.height}
+        weight={pokemon.weight}
+        baseExperience={pokemon.base_experience}
+      />
+    )
   );
 };
 
@@ -29,20 +32,28 @@ function App({
 }) {
   useEffect(() => {
     fetchStarterPokemon(pokemonIds);
-  }, [fetchStarterPokemon]);
+  }, [fetchStarterPokemon, pokemonIds]);
 
   const renderStarterPokemon = (pokemonArr) =>
     pokemonArr.map((pokeObj) => renderPokemon(pokeObj));
 
   return (
     <>
-      <Header> Pokemon </Header>
+      <MainHeader> Pokemon </MainHeader>
       <ul className="pokemon-list">
-        <Button onClick={() => fetchRandomPokemon()}>
-          Find Random Pokemon
-        </Button>
-        {renderPokemon(randomPokemon)}
-        {renderStarterPokemon(starterPokemon)}
+        <div className="wrapper">
+          <Button
+            onClick={() => {
+              fetchRandomPokemon();
+            }}
+          >
+            Find Random Pokemon
+          </Button>
+          <Header>Random Pokemon</Header>
+          {renderPokemon(randomPokemon)}
+          <Header>Starter Pokemon</Header>
+          {renderStarterPokemon(starterPokemon)}
+        </div>
       </ul>
     </>
   );

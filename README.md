@@ -22,3 +22,13 @@ I would capitalize the name of the name property.
 In addition, I would place the rendering/displaying of Pokemon cards in a Page component. 
 For error handling, I would handle the event that a Pokemon does not have a front default image and render a default pic in place of it. I would also try catch blocks for async calls as well. 
 
+## Stretch Features
+
+Create a new component called 'Stats', that is below the header and above the Pokemon cards.
+a. One h3 element at the top with the text 'Stats'
+b. Four p tags showing:
+c. 'Total Base Exp: {number}'
+d. 'Highest Base Exp: {Pokemon name}, {number}'
+e. 'Heaviest: {Pokemon name}, {number}'
+f. 'Tallest: {Pokemon name}, {number}'
+
